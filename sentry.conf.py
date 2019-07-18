@@ -17,7 +17,9 @@
 #  SENTRY_REDIS_DB
 #  SENTRY_MEMCACHED_HOST
 #  SENTRY_MEMCACHED_PORT
-#  SENTRY_FILESTORE_DIR
+#  SENTRY_S3_ACCESS_KEY
+#  SENTRY_S3_SECRET_KEY
+#  SENTRY_S3_BUCKET_NAME
 #  SENTRY_SERVER_EMAIL
 #  SENTRY_EMAIL_HOST
 #  SENTRY_EMAIL_PORT
@@ -30,6 +32,7 @@
 #  SENTRY_MAILGUN_API_KEY
 #  SENTRY_SINGLE_ORGANIZATION
 #  SENTRY_SECRET_KEY
+#  SENTRY_WEB_WORKERS
 #  (slack integration)
 #  SENTRY_SLACK_CLIENT_ID
 #  SENTRY_SLACK_CLIENT_SECRET
@@ -238,9 +241,11 @@ SENTRY_DIGESTS = 'sentry.digests.backends.redis.RedisBackend'
 # Uploaded media uses these `filestore` settings. The available
 # backends are either `filesystem` or `s3`.
 
-SENTRY_OPTIONS['filestore.backend'] = 'filesystem'
+SENTRY_OPTIONS['filestore.backend'] = 's3'
 SENTRY_OPTIONS['filestore.options'] = {
-    'location': env('SENTRY_FILESTORE_DIR'),
+    'access_key': env('SENTRY_S3_ACCESS_KEY'),
+    'secret_key': env('SENTRY_S3_SECRET_KEY'),
+    'bucket_name': env('SENTRY_S3_BUCKET_NAME'),
 }
 
 ##############
@@ -259,7 +264,8 @@ if env('SENTRY_USE_SSL', False):
 SENTRY_WEB_HOST = '0.0.0.0'
 SENTRY_WEB_PORT = 9000
 SENTRY_WEB_OPTIONS = {
-    # 'workers': 3,  # the number of web workers
+    'protocol': 'uwsgi',
+    'workers': env('SENTRY_WEB_WORKERS')
 }
 
 

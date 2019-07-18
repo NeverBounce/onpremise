@@ -1,3 +1,6 @@
+echo "This script doesn't do anything"
+exit
+
 #!/usr/bin/env bash
 set -e
 
