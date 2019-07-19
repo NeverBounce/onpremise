@@ -19,10 +19,9 @@ x-defaults: &defaults
     - sentry-data:/var/lib/sentry/files
 
 services:
-  web:
+  worker:
     <<: *defaults
-    ports:
-      - '9000:9000'
+    command: run worker -c 4
 
 volumes:
     sentry-data:
