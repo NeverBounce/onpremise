@@ -265,7 +265,7 @@ SENTRY_WEB_HOST = '0.0.0.0'
 SENTRY_WEB_PORT = 9000
 SENTRY_WEB_OPTIONS = {
     'protocol': 'uwsgi',
-    'workers': env('SENTRY_WEB_WORKERS')
+    'workers': env('SENTRY_WEB_WORKERS'),
     'http': '%s:%s' % (SENTRY_WEB_HOST, SENTRY_WEB_PORT),
     # This is need to prevent https://git.io/fj7Lw
     'uwsgi-socket': None,
